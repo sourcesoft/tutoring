@@ -1,0 +1,16 @@
+{
+  "name": "tutoring",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "hi": "node script.js",
+    "bye": "ls",
+    "yo": "cat script.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}
