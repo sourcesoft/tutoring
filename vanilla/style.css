@@ -5,6 +5,43 @@
   text-align: center;
 }
 
+.box.display {
+  display: block;
+}
+
+.box {
+  border: 1px solid #000;
+  background-color: red;
+  margin: 10px auto;
+  width: 100px;
+  height: 100px;
+  display: none;
+}
+.box-promise.display {
+  display: block;
+}
+.box-promise {
+  border: 1px solid #000;
+  background-color: red;
+  margin: 10px auto;
+  width: 100px;
+  height: 100px;
+  display: none;
+}
+
 .read-the-docs {
   color: #888;
+}
+
+#btn {
+  background-color: blue;
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 7px;
+  display: block;
+  margin: 10px auto;
+  font-size: 18px;
+}
+#btn:hover {
+  background-color: red;
 }
