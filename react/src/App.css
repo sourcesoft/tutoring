@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+.something{
+  border: 10px solid black;
+}
+.something.show-border {
+  border-color: red;
+}
+.red-thing {
+  background-color: red;
+  width: 50px;
+  height: 50px;
+}
+ul.list li {
+  list-style: none;
+  border-bottom: 1px solid green;
+}
