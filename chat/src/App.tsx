@@ -14,14 +14,7 @@ function App() {
   useEffect(() => {
     // we're gonna retrieve list of messages using an AJAX request from sever
     // from the endpoint `http://localhost:3000/messages` (GET method)
-    fetch("http://localhost:3000/messages")
-      .then(p => p.json())
-      .then((jsonData) => {
-        setMessages(jsonData.data)  
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    onFetch()
 
     // const fetchMessages = async () => {
     //   console.log('going to fetch initial messages from server!')
@@ -33,6 +26,17 @@ function App() {
     // fetchMessages()
   }, [])
 
+  const onFetch = () => {
+    fetch("http://localhost:3000/messages")
+    .then(p => p.json())
+    .then((jsonData) => {
+      setMessages(jsonData.data)  
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   const onChangeText1 = (event: any) => {
     setText1(event.target.value)
   }
@@ -41,21 +45,48 @@ function App() {
   }
 
   const onSubmitText1 = (event: any) => {
-    setMessages([...messages, {
-      user: 1,
-      message: text1,
-    }])
+    fetch('http://localhost:3000/messages', {
+        method: 'POST',
+        body: JSON.stringify({
+          user: 1,
+          message: text1,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(p => p.json())
+      .then((jsonData) => {
+        setMessages(jsonData.data)  
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     setText1('')
   }
   const onSubmitText2 = (event: any) => {
-    setMessages([...messages, {
-      user: 2,
-      message: text2,
-    }])
+    fetch('http://localhost:3000/messages', {
+        method: 'POST',
+        body: JSON.stringify({
+          user: 2,
+          message: text2,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(p => p.json())
+      .then((jsonData) => {
+        setMessages(jsonData.data)  
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     setText2('')
   }
   return (
     <>
+      <button onClick={onFetch}>refresh</button>
       <ul>
         {messages.map((message, index) => (
           <li key={index}><b>{message.user} said</b>: {message.message}</li>

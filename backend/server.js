@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors')
 const port = 3000
 
-const messages = [
+let messages = [
     {
         user: 1,
         message: 'hi',
@@ -17,11 +17,19 @@ const messages = [
     },
 ]
 
+app.use(express.json())
 app.use(cors())
+
 app.get('/messages', (req, res) => {
-  //res.send('hello world')
   res.send({ data: messages })
 })
+
+app.post('/messages', (req, res) => {
+    console.log(req.body)
+    messages = [...messages, req.body]
+
+    res.send({ data: messages })
+  })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
