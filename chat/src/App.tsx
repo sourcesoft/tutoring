@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 interface Message {
@@ -10,6 +10,29 @@ function App() {
   const [text1, setText1] = useState<string>('')
   const [text2, setText2] = useState<string>('')
   const [messages, setMessages] = useState<Message[]>([])
+
+  useEffect(() => {
+    // we're gonna retrieve list of messages using an AJAX request from sever
+    // from the endpoint `http://localhost:3000/messages` (GET method)
+    fetch("http://localhost:3000/messages")
+      .then(p => p.json())
+      .then((jsonData) => {
+        setMessages(jsonData.data)  
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    // const fetchMessages = async () => {
+    //   console.log('going to fetch initial messages from server!')
+    //   const response = await fetch("http://localhost:3000/messages");
+    //   const jsonData = await response.json();
+    //   console.log(jsonData);  
+    //   setMessages(jsonData.data)  
+    // }
+    // fetchMessages()
+  }, [])
+
   const onChangeText1 = (event: any) => {
     setText1(event.target.value)
   }
@@ -22,18 +45,20 @@ function App() {
       user: 1,
       message: text1,
     }])
+    setText1('')
   }
   const onSubmitText2 = (event: any) => {
     setMessages([...messages, {
       user: 2,
       message: text2,
     }])
+    setText2('')
   }
   return (
     <>
       <ul>
-        {messages.map((message) => (
-          <li><b>{message.user} said</b>: {message.message}</li>
+        {messages.map((message, index) => (
+          <li key={index}><b>{message.user} said</b>: {message.message}</li>
         ))}
       </ul>
       <div>
